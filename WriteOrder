@@ -1,0 +1,77 @@
+/*
+Author: Nathaniel Mejia
+Course:	CPT 187
+Purpose: Writes the receipt and stores it for later use.
+Start Date: 12/4/2021 
+ */
+
+package edu.cpt187.mejia.project6;
+
+// Import PrintWriter
+import java.io.PrintWriter;
+
+// Import FileWriter
+import java.io.FileWriter;
+
+// Import IOException
+import java.io.IOException;
+
+//START CLASS: Order
+public class WriteOrder
+{
+
+	//declare and initialize all the attributes
+	private boolean fileFoundFlag = false;
+	private String masterFileName = "";
+	private int recordCount = 0;
+
+
+	//DEFAULT CONSTRUCTOR
+	public WriteOrder (String borrowedFileName)
+	{
+		masterFileName = borrowedFileName;
+	}//END OF default constructor
+
+	//SETTERS ----------------------------------------------------------
+	public void setWriteOrder(int borrowedItemID, String borrowedItemName, double borrowedItemPrice, int borrowedQuantity, double borrowedOrderCost) //setWriteOrder
+	{
+		try // Try block
+		{
+			// Make new PrintWriter
+			PrintWriter filePW = new PrintWriter (new FileWriter(masterFileName,true));
+			
+			// Print onto masterFileName
+			filePW.printf("%d\t%s\t%.2f\t%d\t%f\n", borrowedItemID, borrowedItemName, borrowedItemPrice, borrowedQuantity,borrowedOrderCost);
+
+			fileFoundFlag = true;
+
+			recordCount++; // Increase recordCount by one
+			
+			filePW.close();
+	
+
+		} // END OF TRY
+		catch(IOException ex)
+		{
+			fileFoundFlag = false;
+		} // END OF CATCH
+	} // END OF setWriteOrder
+
+	//GETTERS -----------------------------------------------------------
+	public boolean getFileFoundFlag() // getFileFoundFlag
+	{
+		return fileFoundFlag;
+	} // END OF getFileFoundFlag
+
+	public String getFileName() //getFileName
+	{
+		return masterFileName;
+	} // End of getFileName
+
+	public int getRecordCount() // getRecordCount
+	{
+		return recordCount;
+	} // getRecordCount
+
+} // END OF WriteOrder CLASS
+
